@@ -3,6 +3,7 @@ package com.yyy.shop.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,9 +18,12 @@ public class User {
     private long id;
 
     @NotNull
+    @Column(unique = true)
+    @Length(min = 6,max = 30)
     private String username;
 
     @NotNull
+    @Length(min = 6,max = 30)
     private String password;
 
     @NotNull
@@ -27,6 +31,7 @@ public class User {
     private List<Role> roleList;
 
     @Email
+    @Column(unique = true)
     private String email;
 
 
@@ -34,8 +39,6 @@ public class User {
 
     @NotNull
     private String phone_number;
-
-
 
 
 }

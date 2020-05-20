@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -20,6 +22,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserByUserName(String username) {
         return userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public User findUserById(Long id) throws RuntimeException{
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()){
+            return optionalUser.get();
+        }
+        throw new RuntimeException("This user is not existed");
+    }
+
+    @Override
+    public User saveUser(User user) {
+        userRepository.save(user);
+        return userRepository.getUserByUsername(user.getUsername());
     }
 
     @Override
@@ -35,5 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return userDetails;
     }
+
+
 
 }

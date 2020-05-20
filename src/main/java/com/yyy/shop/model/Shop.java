@@ -2,6 +2,7 @@ package com.yyy.shop.model;
 
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,6 +18,7 @@ public class Shop {
     private long id;
 
     @NotNull
+    @Length(min = 4,max = 30)
     private String name;
 
     private String description;
